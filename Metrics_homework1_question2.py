@@ -34,10 +34,6 @@ def data_generation(n):
 
 x,y = data_generation(100000)
 
-#Get plots of our CEF and BLP, as we will need to graph them later
-cef = np.piecewise(x, [x <= 0, x > 0], [0, lambda x: x])
-blp = 1/np.sqrt(2*math.pi) + 0.5*x
-
 
 x = x[:, np.newaxis]
 X_train, X_test, y_train, y_test = train_test_split(x, y)
