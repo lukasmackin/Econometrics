@@ -73,6 +73,43 @@ restricted_model = sm.OLS(y, x_restricted_model_df)
 restricted_results = restricted_model.fit()
 restricted_rss = restricted_results.ssr
 
+#Compute R matrix
+D = np.matrix([[1, 17, 26, 17*26],
+             [1, 17, 27, 17*27],
+             [1, 17, 28, 17*28],
+             [1, 17, 29, 17*29],
+             [1, 17, 30, 17*30],
+             [1, 16, 26, 16*26],
+             [1, 16, 27, 16*27],
+             [1, 16, 28, 16*28],
+             [1, 16, 29, 16*29],
+             [1, 16, 30, 16*30],
+             [1, 15, 26, 15*26],
+             [1, 15, 27, 15*27],
+             [1, 15, 28, 15*28],
+             [1, 15, 29, 15*29],
+             [1, 15, 30, 15*30],
+             [1, 14, 26, 14*26],
+             [1, 14, 27, 14*27],
+             [1, 14, 28, 14*28],
+             [1, 14, 29, 14*29],
+             [1, 14, 30, 14*30],
+             [1, 13, 26, 13*26],
+             [1, 13, 27, 13*27],
+             [1, 13, 28, 13*28],
+             [1, 13, 29, 13*29],
+             [1, 13, 30, 13*30],
+             [1, 12, 26, 12*26],
+             [1, 12, 27, 12*27],
+             [1, 12, 28, 12*28],
+             [1, 12, 29, 12*29],
+             [1, 12, 30, 12*30]])
+
+D_transpose = D.transpose()
+
+intermediate_matrix = D * np.linalg.inv(D_transpose * D) * D_transpose
+R = np.identity(30) - intermediate_matrix
+
 #We can compute out F-statistic
 F_stat = ((restricted_rss - unrestricted_rss)/26) / (unrestricted_rss/868)
 
